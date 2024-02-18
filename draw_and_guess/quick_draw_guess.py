@@ -19,7 +19,7 @@ def main():
     print("Duration:", args.duration)
     print("Number of words:", args.n)
     vocabulary = Vocabulary(file_name=args.vocabulary, seed=args.seed, n=args.n)
-    my_gui = MyGUI(vocabulary, seed=args.seed, duration=args.duration)
+    my_gui = MyGUI(vocabulary, duration=args.duration)
     my_gui.run()
 
 

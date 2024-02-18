@@ -33,7 +33,6 @@ class MyGUI:
         self.v_seed = None
         self.vocabulary = vocabulary
         self.selected = self.vocabulary.select_words()
-        random.seed(seed)
 
         self.duration = duration
         self.v_seed_len = v_seed_len
@@ -112,7 +111,7 @@ class MyGUI:
         #     file=relative_to_assets("button_1.png"))
         self.button_rest = Button(
             # image=button_image_1,
-            bg="black",
+            bg="white",
             text="Set v_seed",
             borderwidth=0,
             # highlightthickness=0,
@@ -137,7 +136,7 @@ class MyGUI:
         #     file=relative_to_assets("button_1.png"))
         self.button_draw = Button(
             # image=button_image_1,
-            bg="black",
+            bg="white",
             text="Draw",
             borderwidth=0,
             # highlightthickness=0,
@@ -155,7 +154,7 @@ class MyGUI:
         #     file=relative_to_assets("button_2.png"))
         self.button_2 = Button(
             # image=button_image_2,
-            bg="blue",
+            bg="white",
             text="Generate",
             font=40,
             borderwidth=0,
@@ -173,6 +172,7 @@ class MyGUI:
         self.root.protocol("WM_DELETE_WINDOW", self.on_root_window_close)
 
     def generate_vocabulary_seed(self):
+        random.seed(None)
         self.v_seed = ''.join(random.choice(CHARACTERS) for _ in range(self.v_seed_len))
         self.entry_private.delete(0, "end")
         self.entry_private.insert(0, self.v_seed)
@@ -235,8 +235,11 @@ class MyGUI:
 
     def shuffle_vocabulary(self):
         # Shuffle vocabulary
+        print(self.v_seed)
         random.seed(self.v_seed)
-        random.shuffle(self.shuffle_index)
+        l0 = list(range(self.vocabulary.n))
+        random.shuffle(l0)
+        self.shuffle_index = l0[:]
 
     def create_word_window(self):
         self.word_window = Toplevel(self.root)
